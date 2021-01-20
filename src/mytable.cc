@@ -36,10 +36,7 @@ DEFINE_METHOD(MyTable, get) {
     const std::string& name = ctx->arg("name");
     MyTable::entity ent;
     if (self.get_entity().find({{"name", name}}, &ent)) {
-        std::string re = "{";
-        re += std::to_string(ent.id()) + ",";
-        re += ent.name() + "}";
-        ctx->ok(re);
+        ctx->ok(ent.to_str());
         return;
     }
     ctx->error("can not find " + name);
@@ -47,18 +44,22 @@ DEFINE_METHOD(MyTable, get) {
 
 DEFINE_METHOD(MyTable, set) {
     xchain::Context* ctx = self.context();
-    const std::string& id= ctx->arg("id");
-    const std::string& name = ctx->arg("name");
+    const std::string mytableStr= ctx->arg("mytable");
+    if (mytableStr.size() == 0) {
+        ctx->error("missing blockHeader");
+        return;
+    }
 
-    MyTable::entity ent;
-    ent.set_id(std::stoll(id));
-    ent.set_name(name.c_str());
-    self.get_entity().put(ent);
+    std::unique_ptr<MyTable::entity> ent(new MyTable::entity);
+    bool succ = ent->ParseFromString(mytableStr);
+    if (!succ) {
+        ctx->error("parse from string error");
+        return;
+    }
 
-    std::string re = "{";
-    re += id + ",";
-    re += name + "} add success";
-    ctx->ok(re);
+    self.get_entity().put(*ent);
+
+    ctx->ok("save ok");
 }
 
 DEFINE_METHOD(MyTable, del) {
