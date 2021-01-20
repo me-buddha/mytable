@@ -165,6 +165,20 @@ class MyTable :
   ::std::string* release_name();
   void set_allocated_name(::std::string* name);
 
+  // bytes desc = 3;
+  void clear_desc();
+  static const int kDescFieldNumber = 3;
+  const ::std::string& desc() const;
+  void set_desc(const ::std::string& value);
+  #if LANG_CXX11
+  void set_desc(::std::string&& value);
+  #endif
+  void set_desc(const char* value);
+  void set_desc(const void* value, size_t size);
+  ::std::string* mutable_desc();
+  ::std::string* release_desc();
+  void set_allocated_desc(::std::string* desc);
+
   // int64 id = 1;
   void clear_id();
   static const int kIdFieldNumber = 1;
@@ -177,6 +191,7 @@ class MyTable :
 
   ::google::protobuf::internal::InternalMetadataWithArenaLite _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr name_;
+  ::google::protobuf::internal::ArenaStringPtr desc_;
   ::google::protobuf::int64 id_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_mytable_2eproto;
@@ -257,6 +272,59 @@ inline void MyTable::set_allocated_name(::std::string* name) {
   }
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:mytable.MyTable.name)
+}
+
+// bytes desc = 3;
+inline void MyTable::clear_desc() {
+  desc_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& MyTable::desc() const {
+  // @@protoc_insertion_point(field_get:mytable.MyTable.desc)
+  return desc_.GetNoArena();
+}
+inline void MyTable::set_desc(const ::std::string& value) {
+  
+  desc_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:mytable.MyTable.desc)
+}
+#if LANG_CXX11
+inline void MyTable::set_desc(::std::string&& value) {
+  
+  desc_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:mytable.MyTable.desc)
+}
+#endif
+inline void MyTable::set_desc(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  desc_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:mytable.MyTable.desc)
+}
+inline void MyTable::set_desc(const void* value, size_t size) {
+  
+  desc_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:mytable.MyTable.desc)
+}
+inline ::std::string* MyTable::mutable_desc() {
+  
+  // @@protoc_insertion_point(field_mutable:mytable.MyTable.desc)
+  return desc_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* MyTable::release_desc() {
+  // @@protoc_insertion_point(field_release:mytable.MyTable.desc)
+  
+  return desc_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void MyTable::set_allocated_desc(::std::string* desc) {
+  if (desc != nullptr) {
+    
+  } else {
+    
+  }
+  desc_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), desc);
+  // @@protoc_insertion_point(field_set_allocated:mytable.MyTable.desc)
 }
 
 #ifdef __GNUC__

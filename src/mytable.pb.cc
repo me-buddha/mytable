@@ -46,6 +46,7 @@ class MyTable::HasBitSetters {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int MyTable::kIdFieldNumber;
 const int MyTable::kNameFieldNumber;
+const int MyTable::kDescFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 MyTable::MyTable()
@@ -61,6 +62,10 @@ MyTable::MyTable(const MyTable& from)
   if (from.name().size() > 0) {
     name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
+  desc_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.desc().size() > 0) {
+    desc_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.desc_);
+  }
   id_ = from.id_;
   // @@protoc_insertion_point(copy_constructor:mytable.MyTable)
 }
@@ -69,6 +74,7 @@ void MyTable::SharedCtor() {
   ::google::protobuf::internal::InitSCC(
       &scc_info_MyTable_mytable_2eproto.base);
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  desc_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   id_ = PROTOBUF_LONGLONG(0);
 }
 
@@ -79,6 +85,7 @@ MyTable::~MyTable() {
 
 void MyTable::SharedDtor() {
   name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  desc_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 void MyTable::SetCachedSize(int size) const {
@@ -97,6 +104,7 @@ void MyTable::Clear() {
   (void) cached_has_bits;
 
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  desc_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   id_ = PROTOBUF_LONGLONG(0);
   _internal_metadata_.Clear();
 }
@@ -133,6 +141,21 @@ const char* MyTable::_InternalParse(const char* begin, const char* end, void* ob
           goto string_till_end;
         }
         GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8(ptr, size, ctx));
+        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+        ptr += size;
+        break;
+      }
+      // bytes desc = 3;
+      case 3: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 26) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        object = msg->mutable_desc();
+        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
+          parser_till_end = ::google::protobuf::internal::GreedyStringParser;
+          goto string_till_end;
+        }
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheck(ptr, size, ctx));
         ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
         ptr += size;
         break;
@@ -205,6 +228,17 @@ bool MyTable::MergePartialFromCodedStream(
         break;
       }
 
+      // bytes desc = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (26 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+                input, this->mutable_desc()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -247,6 +281,12 @@ void MyTable::SerializeWithCachedSizes(
       2, this->name(), output);
   }
 
+  // bytes desc = 3;
+  if (this->desc().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
+      3, this->desc(), output);
+  }
+
   output->WriteRaw(_internal_metadata_.unknown_fields().data(),
                    static_cast<int>(_internal_metadata_.unknown_fields().size()));
   // @@protoc_insertion_point(serialize_end:mytable.MyTable)
@@ -267,6 +307,13 @@ size_t MyTable::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->name());
+  }
+
+  // bytes desc = 3;
+  if (this->desc().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
+        this->desc());
   }
 
   // int64 id = 1;
@@ -297,6 +344,10 @@ void MyTable::MergeFrom(const MyTable& from) {
 
     name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
+  if (from.desc().size() > 0) {
+
+    desc_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.desc_);
+  }
   if (from.id() != 0) {
     set_id(from.id());
   }
@@ -321,6 +372,8 @@ void MyTable::InternalSwap(MyTable* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
   name_.Swap(&other->name_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  desc_.Swap(&other->desc_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   swap(id_, other->id_);
 }

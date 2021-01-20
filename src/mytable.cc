@@ -12,8 +12,9 @@ public:
     // 1. rowkey can not be same with index
     struct entity: public mytable::MyTable {
         DEFINE_ROWKEY(name);
-        DEFINE_INDEX_BEGIN(1)
+        DEFINE_INDEX_BEGIN(2)
             DEFINE_INDEX_ADD(0, id, name)
+            DEFINE_INDEX_ADD(1, name, desc)
         DEFINE_INDEX_END();
     };
 private:
@@ -38,7 +39,8 @@ DEFINE_METHOD(MyTable, get) {
     if (self.get_entity().find({{"name", name}}, &ent)) {
         std::string re = "{";
         re += std::to_string(ent.id()) + ",";
-        re += ent.name() + "}";
+        re += ent.name() + ",";
+        re += ent.desc() + "}";
         ctx->ok(re);
         return;
     }
@@ -49,15 +51,18 @@ DEFINE_METHOD(MyTable, set) {
     xchain::Context* ctx = self.context();
     const std::string& id= ctx->arg("id");
     const std::string& name = ctx->arg("name");
+    const std::string& desc = ctx->arg("desc");
 
     MyTable::entity ent;
     ent.set_id(std::stoll(id));
     ent.set_name(name.c_str());
+    ent.set_desc(desc);
     self.get_entity().put(ent);
 
     std::string re = "{";
     re += id + ",";
-    re += name + "} add success";
+    re += name + ",";
+    re += desc + "} add success";
     ctx->ok(re);
 }
 
@@ -65,15 +70,18 @@ DEFINE_METHOD(MyTable, del) {
     xchain::Context* ctx = self.context();
     const std::string& id= ctx->arg("id");
     const std::string& name = ctx->arg("name");
+    const std::string& desc = ctx->arg("desc");
 
     MyTable::entity ent;
     ent.set_id(std::stoll(id));
     ent.set_name(name.c_str());
+    ent.set_desc(desc);
     self.get_entity().del(ent);
 
     std::string re = "{";
     re += id + ",";
-    re += name + "} del success";
+    re += name + ",";
+    re += desc + "} del success";
     ctx->ok(re);
 }
 
@@ -81,6 +89,7 @@ DEFINE_METHOD(MyTable, scan) {
     xchain::Context* ctx = self.context();
     const std::string& name = ctx->arg("name");
     const std::string& id = ctx->arg("id");
+    //const std::string& desc = ctx->arg("desc");
     auto it = self.get_entity().scan({{"id", id},{"name", name}});
     MyTable::entity ent;
     int i = 0;
@@ -90,9 +99,13 @@ DEFINE_METHOD(MyTable, scan) {
         if (it->get(&ent)) {
             std::string obj = "{";
             obj += std::to_string(ent.id()) + ",";
-            obj += ent.name() + "}";
+            obj += ent.name() + ",";
+            obj += ent.desc() + "}";
             re += obj;
 
+            // std::cout << "id: " << ent.id()<< std::endl;
+            // std::cout << "name: " << ent.name()<< std::endl;
+            // std::cout << "desc: " << ent.desc()<< std::endl;            
             if (kv.find(ent.name()) != kv.end()) {
                 ctx->error("find duplicated key");
                 return;
@@ -121,7 +134,8 @@ DEFINE_METHOD(MyTable, size) {
         if (it->get(&ent)) {
             std::string obj = "{";
             obj += std::to_string(ent.id()) + ",";
-            obj += ent.name() + "}";
+            obj += ent.name() + ",";
+            obj += ent.desc() + "}";
             re += obj;
             i += 1;
         } else {
