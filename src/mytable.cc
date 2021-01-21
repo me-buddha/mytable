@@ -31,7 +31,21 @@ DEFINE_METHOD(MyTable, initialize) {
     ctx->ok("initialize succeed");
 }
 
-DEFINE_METHOD(MyTable, get) {
+DEFINE_METHOD(MyTable, findid) {
+    xchain::Context* ctx = self.context();
+    const std::string& id = ctx->arg("id");
+    MyTable::entity ent;
+    if (self.get_entity().find({{"id", id}}, &ent)) {
+        std::string re = "{";
+        re += std::to_string(ent.id()) + ",";
+        re += ent.name() + "}";
+        ctx->ok(re);
+        return;
+    }
+    ctx->error("can not find " + id);
+}
+
+DEFINE_METHOD(MyTable, findname) {
     xchain::Context* ctx = self.context();
     const std::string& name = ctx->arg("name");
     MyTable::entity ent;
@@ -45,7 +59,7 @@ DEFINE_METHOD(MyTable, get) {
     ctx->error("can not find " + name);
 }
 
-DEFINE_METHOD(MyTable, set) {
+DEFINE_METHOD(MyTable, add) {
     xchain::Context* ctx = self.context();
     const std::string& id= ctx->arg("id");
     const std::string& name = ctx->arg("name");
@@ -80,8 +94,7 @@ DEFINE_METHOD(MyTable, del) {
 DEFINE_METHOD(MyTable, scan) {
     xchain::Context* ctx = self.context();
     const std::string& name = ctx->arg("name");
-    const std::string& id = ctx->arg("id");
-    auto it = self.get_entity().scan({{"id", id},{"name", name}});
+    auto it = self.get_entity().scan({{"name", name}});
     MyTable::entity ent;
     int i = 0;
     std::string re = "{";
@@ -111,7 +124,7 @@ DEFINE_METHOD(MyTable, scan) {
     ctx->ok(std::to_string(i) + " -> " + re);
 }
 
-DEFINE_METHOD(MyTable, size) {
+DEFINE_METHOD(MyTable, count) {
     xchain::Context* ctx = self.context();
     auto it = self.get_entity().scan({});
     int i = 0;
