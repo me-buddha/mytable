@@ -1,5 +1,11 @@
 # 测试主键是否起作用
 
+```bash
+#创建合约账户
+xchain-cli account new --account 1234567890111111 --fee 1000
+xchain-cli transfer --to XC1234567890111111@xuper --amount 10000000000 --keys data/keys
+````
+
 
 > protobuf 版本注意只能使用 3.7.1， fuck， 坑。
 
