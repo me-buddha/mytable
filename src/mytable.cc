@@ -12,9 +12,19 @@ public:
     // 1. rowkey can not be same with index
     struct entity: public mytable::MyTable {
         DEFINE_ROWKEY(id);
-        DEFINE_INDEX_BEGIN(1)
+        DEFINE_INDEX_BEGIN(0)
             DEFINE_INDEX_ADD(0, id)
         DEFINE_INDEX_END();
+
+
+        std::string to_string() {
+            std::string str ;
+            str += "{" ;
+            str += std::to_string(id()) + ",";
+            str += name();
+            str += "}";
+            return str;
+        }
     };
 private:
     xchain::cdt::Table<entity> _entity;
@@ -42,8 +52,7 @@ DEFINE_METHOD(MyTable, count) {
         if (!it->get(&ent))
             break;
 
-        std::string obj ; obj += "{" + std::to_string(ent.id()) + "," + ent.name() + "}";
-        re += obj;
+        re += ent.to_string();
         i += 1;
     }
     // if (it->error()) 
@@ -85,8 +94,7 @@ DEFINE_METHOD(MyTable, add) {
     ent.set_name(name.c_str());
     self.get_entity().put(ent);
 
-    std::string obj ; obj += "{" +id() + "," + name + "}";
-    ctx->ok(re);
+    ctx->ok(ent.to_string());
 }
 
 DEFINE_METHOD(MyTable, del) {
@@ -99,59 +107,65 @@ DEFINE_METHOD(MyTable, del) {
     ent.set_name(name.c_str());
     self.get_entity().del(ent);
 
-    std::string obj ; obj += "{" +id() + "," + name + "}";
-    ctx->ok(obj);
+    ctx->ok(ent.to_string());
 }
+
+// DEFINE_METHOD(MyTable, scan) {
+//     xchain::Context* ctx = self.context();
+//     const std::string& name = ctx->arg("name");
+//     auto it = self.get_entity().scan({{"name", name}});
+//     MyTable::entity ent;
+//     int i = 0;
+//     std::string re ;
+//     std::map<std::string, bool> kv;
+//     while(it->next()) {
+//         if (it->get(&ent)) {
+//             std::string obj ; obj += "{" + std::to_string(ent.id()) + "," + ent.name() + "}";
+//             re += obj;
+
+//             if (kv.find(ent.name()) != kv.end()) {
+//                 ctx->error("find duplicated key");
+//                 return;
+//             }
+//             kv[ent.name()] = true;
+//             i += 1;
+//         } else {
+//             std::cout << "get error" << std::endl;
+//         }
+//     }
+//     std::cout << i << std::endl;
+//     if (it->error()) {
+//         std::cout << it->error(true) << std::endl;
+//     }
+//     re += "}";
+//     ctx->ok(std::to_string(i) + " -> " + re);
+// }
+
+
 
 DEFINE_METHOD(MyTable, scan) {
     xchain::Context* ctx = self.context();
-    const std::string& name = ctx->arg("name");
-    auto it = self.get_entity().scan({{"name", name}});
-    MyTable::entity ent;
+    // auto it = self.get_entity().scan({});
+    // auto it = self.get_entity().scan({{"id", "1"}});
+    // int i = 0;
+    // while(it->next()) 
+    //     i++;
+    // ctx->ok(std::to_string(i));
+
+    auto it = self.get_entity().scan({{"id", ctx->arg("id").c_str()}});
     int i = 0;
-    std::string re ;
-    std::map<std::string, bool> kv;
-    while(it->next()) {
-        if (it->get(&ent)) {
-            std::string obj ; obj += "{" + std::to_string(ent.id()) + "," + ent.name() + "}";
-            re += obj;
-
-            if (kv.find(ent.name()) != kv.end()) {
-                ctx->error("find duplicated key");
-                return;
-            }
-            kv[ent.name()] = true;
-            i += 1;
-        } else {
-            std::cout << "get error" << std::endl;
-        }
-    }
-    std::cout << i << std::endl;
-    if (it->error()) {
-        std::cout << it->error(true) << std::endl;
-    }
-    re += "}";
-    ctx->ok(std::to_string(i) + " -> " + re);
-}
-
-
-
-DEFINE_METHOD(MyTable, clear) {
-    xchain::Context* ctx = self.context();
-    auto it = self.get_entity().scan({});
-    int i = 0;
+    std::string ret;
     while(it->next()) {
         MyTable::entity ent;
         if (it->get(&ent)) {
-            self.get_entity().del(ent);
-            i += 1;
-        } else {
-            std::cout << "get error" << std::endl;
+            std::cout << __LINE__ << " run" << std::endl;
+            i++;
+            ret += ent.to_string();
         }
+        else
+            std::cout << __LINE__ << " get error : " << it->error(true) << std::endl;
     }
-    std::cout << i << std::endl;
-    if (it->error()) {
-        std::cout << it->error(true) << std::endl;
-    }
-    ctx->ok(std::to_string(i));
+    ctx->ok(std::to_string(i) + ret);
+    // ctx->ok(std::to_string(i));
 }
+
