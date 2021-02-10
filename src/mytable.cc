@@ -3,6 +3,9 @@
 #include "xchain/table/types.h"
 #include "xchain/table/table.tpl.h"
 #include "mytable.pb.h"
+#include <iostream>
+
+using namespace std;
 
 //data mytableing
 struct MyTable : public xchain::Contract {
@@ -14,6 +17,7 @@ public:
         DEFINE_ROWKEY(id);
         DEFINE_INDEX_BEGIN(0)
             DEFINE_INDEX_ADD(0, id)
+            DEFINE_INDEX_ADD(1, name)
         DEFINE_INDEX_END();
 
 
@@ -89,6 +93,8 @@ DEFINE_METHOD(MyTable, add) {
     const std::string& id= ctx->arg("id");
     const std::string& name = ctx->arg("name");
 
+    cout << __func__ << "[" << __LINE__ << "] " << "id=" << id << endl;
+
     MyTable::entity ent;
     ent.set_id(std::stoll(id));
     ent.set_name(name.c_str());
@@ -152,20 +158,20 @@ DEFINE_METHOD(MyTable, scan) {
     //     i++;
     // ctx->ok(std::to_string(i));
 
-    auto it = self.get_entity().scan({{"id", ctx->arg("id").c_str()}});
+    auto it = self.get_entity().scan({{"name", ctx->arg("name").c_str()}});
     int i = 0;
-    std::string ret;
+    // std::string ret;
     while(it->next()) {
         MyTable::entity ent;
         if (it->get(&ent)) {
             std::cout << __LINE__ << " run" << std::endl;
             i++;
-            ret += ent.to_string();
+            // ret += ent.to_string();
         }
         else
             std::cout << __LINE__ << " get error : " << it->error(true) << std::endl;
     }
-    ctx->ok(std::to_string(i) + ret);
-    // ctx->ok(std::to_string(i));
+    // ctx->ok(std::to_string(i) + ret);
+    ctx->ok(std::to_string(i));
 }
 
