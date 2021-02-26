@@ -1,8 +1,7 @@
 #include <inttypes.h>
 #include "xchain/xchain.h"
-#include "xchain/table/types.h"
-#include "xchain/table/table.tpl.h"
 #include "mytable.pb.h"
+#include "thetable.h"
 #include <iostream>
 
 using namespace std;
@@ -10,32 +9,14 @@ using namespace std;
 //data mytableing
 struct MyTable : public xchain::Contract {
 public:
-    MyTable(): _entity(this->context(), "entity") {}
+    MyTable(): _thetable(this->context(), "thetable") {}
 
-    // 1. rowkey can not be same with index
-    struct entity: public mytable::MyTable {
-        DEFINE_ROWKEY(id);
-        DEFINE_INDEX_BEGIN(0)
-            DEFINE_INDEX_ADD(0, id)
-            DEFINE_INDEX_ADD(1, name)
-        DEFINE_INDEX_END();
-
-
-        std::string to_string() {
-            std::string str ;
-            str += "{" ;
-            str += std::to_string(id()) + ",";
-            str += name();
-            str += "}";
-            return str;
-        }
-    };
 private:
-    xchain::cdt::Table<entity> _entity;
+    xchain::cdt::Table<thetable> _thetable;
 
 public:
-    decltype(_entity)& get_entity() {
-        return _entity;
+    decltype(_thetable)& get_thetable() {
+        return _thetable;
     }
 };
 
@@ -48,11 +29,11 @@ DEFINE_METHOD(MyTable, initialize) {
 DEFINE_METHOD(MyTable, count) {
     xchain::Context* ctx = self.context();
     
-    auto it = self.get_entity().scan({{"id","1"}});
+    auto it = self.get_thetable().scan({{"id","1"}});
     int i = 0;
     std::string re ;
     while(it->next()) {
-        MyTable::entity ent;
+        thetable ent;
         if (!it->get(&ent))
             break;
 
@@ -67,8 +48,8 @@ DEFINE_METHOD(MyTable, count) {
 DEFINE_METHOD(MyTable, findid) {
     xchain::Context* ctx = self.context();
     const std::string& id = ctx->arg("id");
-    MyTable::entity ent;
-    if (self.get_entity().find({{"id", id}}, &ent)) {
+    thetable ent;
+    if (self.get_thetable().find({{"id", id}}, &ent)) {
         std::string obj ; obj += "{" + std::to_string(ent.id()) + "," + ent.name() + "}";
         ctx->ok(obj);
         return;
@@ -79,8 +60,8 @@ DEFINE_METHOD(MyTable, findid) {
 DEFINE_METHOD(MyTable, findname) {
     xchain::Context* ctx = self.context();
     const std::string& name = ctx->arg("name");
-    MyTable::entity ent;
-    if (self.get_entity().find({{"name", name}}, &ent)) {
+    thetable ent;
+    if (self.get_thetable().find({{"name", name}}, &ent)) {
         std::string obj ; obj += "{" + std::to_string(ent.id()) + "," + ent.name() + "}";
         ctx->ok(obj);
         return;
@@ -95,10 +76,10 @@ DEFINE_METHOD(MyTable, add) {
 
     cout << __func__ << "[" << __LINE__ << "] " << "id=" << id << endl;
 
-    MyTable::entity ent;
+    thetable ent;
     ent.set_id(std::stoll(id));
     ent.set_name(name.c_str());
-    self.get_entity().put(ent);
+    self.get_thetable().put(ent);
 
     ctx->ok(ent.to_string());
 }
@@ -108,10 +89,10 @@ DEFINE_METHOD(MyTable, del) {
     const std::string& id= ctx->arg("id");
     const std::string& name = ctx->arg("name");
 
-    MyTable::entity ent;
+    thetable ent;
     ent.set_id(std::stoll(id));
     ent.set_name(name.c_str());
-    self.get_entity().del(ent);
+    self.get_thetable().del(ent);
 
     ctx->ok(ent.to_string());
 }
@@ -119,8 +100,8 @@ DEFINE_METHOD(MyTable, del) {
 // DEFINE_METHOD(MyTable, scan) {
 //     xchain::Context* ctx = self.context();
 //     const std::string& name = ctx->arg("name");
-//     auto it = self.get_entity().scan({{"name", name}});
-//     MyTable::entity ent;
+//     auto it = self.get_thetable().scan({{"name", name}});
+//     thetable ent;
 //     int i = 0;
 //     std::string re ;
 //     std::map<std::string, bool> kv;
@@ -151,18 +132,18 @@ DEFINE_METHOD(MyTable, del) {
 
 DEFINE_METHOD(MyTable, scan) {
     xchain::Context* ctx = self.context();
-    // auto it = self.get_entity().scan({});
-    // auto it = self.get_entity().scan({{"id", "1"}});
+    // auto it = self.get_thetable().scan({});
+    // auto it = self.get_thetable().scan({{"id", "1"}});
     // int i = 0;
     // while(it->next()) 
     //     i++;
     // ctx->ok(std::to_string(i));
 
-    auto it = self.get_entity().scan({{"name", ctx->arg("name").c_str()}});
+    auto it = self.get_thetable().scan({{"name", ctx->arg("name").c_str()}});
     int i = 0;
     // std::string ret;
     while(it->next()) {
-        MyTable::entity ent;
+        thetable ent;
         if (it->get(&ent)) {
             std::cout << __LINE__ << " run" << std::endl;
             i++;
