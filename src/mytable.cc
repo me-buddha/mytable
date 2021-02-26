@@ -2,23 +2,10 @@
 #include "xchain/xchain.h"
 #include "mytable.pb.h"
 #include "thetable.h"
+#include "mytable.h"
 #include <iostream>
 
 using namespace std;
-
-//data mytableing
-struct MyTable : public xchain::Contract {
-public:
-    MyTable(): _thetable(this->context(), "thetable") {}
-
-private:
-    xchain::cdt::Table<thetable> _thetable;
-
-public:
-    decltype(_thetable)& get_thetable() {
-        return _thetable;
-    }
-};
 
 //初始化
 DEFINE_METHOD(MyTable, initialize) {
