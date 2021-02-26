@@ -1,7 +1,7 @@
 #include <inttypes.h>
 #include "xchain/xchain.h"
-#include "mytable.pb.h"
 #include "thetable.h"
+#include "mytable.pb.h"
 #include "mytable.h"
 #include <iostream>
 
