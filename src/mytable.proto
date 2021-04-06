@@ -3,8 +3,12 @@ option optimize_for = LITE_RUNTIME;
 
 package mytable;
 
-message MyTable {
+message MyInfo {
     int64 id = 1;
     string name = 2;
 }
 
+message MyAddress {
+    int64 id = 1;
+    string address = 2;
+}

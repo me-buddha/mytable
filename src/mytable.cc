@@ -3,73 +3,195 @@
 #include "xchain/table/types.h"
 #include "xchain/table/table.tpl.h"
 #include "mytable.pb.h"
+#include "xchain/json/json.h"
+#include "xchain/contract.pb.h"
 
-//data mytableing
-struct MyTable : public xchain::Contract {
-public:
-    MyTable(): _entity(this->context(), "entity") {}
+#include <string>
+using namespace std ;
 
-    // 1. rowkey can not be same with index
-    struct entity: public mytable::MyTable {
-        DEFINE_ROWKEY(name);
-        DEFINE_INDEX_BEGIN(1)
-            DEFINE_INDEX_ADD(0, id, name)
-        DEFINE_INDEX_END();
-    };
-private:
-    xchain::cdt::Table<entity> _entity;
+#define mycout cout << __FILE__ << "(" << __LINE__ << ") [" << __FUNCTION__ << "] " 
 
-public:
-    decltype(_entity)& get_entity() {
-        return _entity;
+
+// 1. rowkey can not be same with index
+struct myinfo: public mytable::MyInfo {
+    DEFINE_ROWKEY(id);
+    DEFINE_INDEX_BEGIN(1)
+        DEFINE_INDEX_ADD(0, id)
+    DEFINE_INDEX_END();
+
+
+    xchain::json to_json() {
+        xchain::json j = {
+            {"id", id()},
+            {"name", name()},
+        };
+
+        return j;
     }
 };
 
+struct myaddress: public mytable::MyAddress {
+    DEFINE_ROWKEY(id, address);
+    DEFINE_INDEX_BEGIN(1)
+        DEFINE_INDEX_ADD(0, id)
+    DEFINE_INDEX_END();
+
+    xchain::json to_json() {
+        xchain::json j = {
+            {"id", id()},
+            {"address", address()},
+        };
+
+        return j;
+    }
+};
+
+//data mytableing
+struct MyInfo : public xchain::Contract {
+public:
+    MyInfo():
+        _myinfo(this->context(), "myinfo"),
+        _myaddress(this->context(), "myaddress"),
+        
+        ctx(context())
+    {}
+
+
+private:
+    xchain::cdt::Table<myinfo> _myinfo;
+    xchain::cdt::Table<myaddress> _myaddress;
+
+    xchain::Context* ctx;
+
+public:
+    decltype(_myinfo)& get_info()           {     return _myinfo;     }
+    decltype(_myaddress)& get_address()     {     return _myaddress;  }
+
+    void _log_error(const string&, const string&, const int, const string& ="") ;
+    void _log_error(const string&, const string&, const int, const string&, const xchain::json&) ;
+    void _log_ok(const string&, const string&, const int, const string& ="") ;
+    void _log_ok(const string&, const string&, const int, const string&, const xchain::json&) ;
+
+    void initialize();
+    void get();
+    void set();
+    void del();
+    void scan();
+    void size();
+    void clear();
+};
+
+
+
+void MyInfo::_log_error(const string& file, const string& fun, const int line, const string& message) {
+    cout << file << "(" << line << ") [" << fun << "] " << message << endl;
+    xchain::json ret ;
+    ret["result"] = false;
+    ret["message"] = message;
+
+    ctx->ok(ret.dump());
+}
+
+
+void MyInfo::_log_error(const string& file, const string& fun, const int line, const string& message, const xchain::json& j) {
+    cout << file << "(" << line << ") [" << fun << "] " << j.dump() << endl;
+    xchain::json ret ;
+    ret["result"] = false;
+    ret["message"] = message;
+    ret["value"] = j;
+    if(j.is_array())
+        ret["size"] = j.size();
+
+    ctx->ok(ret.dump());
+}
+
+void MyInfo::_log_ok(const string& file, const string& fun, const int line, const string& message) {
+    cout << file << "(" << line << ") [" << fun << "] " << message << endl;
+    xchain::json ret ;
+    ret["result"] = true;
+    ret["message"] = message;
+    ctx->ok(ret.dump());
+}
+
+void MyInfo::_log_ok(const string& file, const string& fun, const int line, const string& message, const xchain::json& j) {
+    cout << file << "(" << line << ") [" << fun << "] " << j.dump() << endl;
+    xchain::json ret ;
+    ret["result"] = true;
+    ret["message"] = message;
+    ret["value"] = j;
+    if(j.is_array())
+        ret["size"] = j.size();
+
+    ctx->ok(ret.dump());
+}
+
 //初始化
-DEFINE_METHOD(MyTable, initialize) {
-    xchain::Context* ctx = self.context();
+void MyInfo::initialize() {
+    xchain::Context* ctx = context();
     ctx->ok("initialize succeed");
 }
 
-DEFINE_METHOD(MyTable, get) {
-    xchain::Context* ctx = self.context();
-    const std::string& name = ctx->arg("name");
-    MyTable::entity ent;
-    if (self.get_entity().find({{"name", name}}, &ent)) {
+void MyInfo::get() {
+    xchain::Context* ctx = context();
+    const std::string& id = ctx->arg("id");
+    myinfo info;
+    if (get_info().find({{"id", id}}, &info)) {
         std::string re = "{";
-        re += std::to_string(ent.id()) + ",";
-        re += ent.name() + "}";
+        re += std::to_string(info.id()) + ",";
+        re += info.name() + "}";
         ctx->ok(re);
         return;
     }
-    ctx->error("can not find " + name);
+    ctx->error("can not find " + id);
 }
 
-DEFINE_METHOD(MyTable, set) {
-    xchain::Context* ctx = self.context();
+void MyInfo::set() {
+    xchain::Context* ctx = context();
     const std::string& id= ctx->arg("id");
     const std::string& name = ctx->arg("name");
 
-    MyTable::entity ent;
-    ent.set_id(std::stoll(id));
-    ent.set_name(name.c_str());
-    self.get_entity().put(ent);
+    auto it = get_address().scan({{"id",id}});
+    while(it->next() ) {
+        myaddress ent;
+        if (!it->get(&ent) ) {
+            _log_error(__FILE__, __FUNCTION__, __LINE__, "myaddress table get failure : " + it->error(true) );
+            return;
+        }
 
-    std::string re = "{";
-    re += id + ",";
-    re += name + "} add success";
-    ctx->ok(re);
+        if( !get_address().del(ent) ) {
+            _log_error(__FILE__, __FUNCTION__, __LINE__, "delete myaddress failure ." );
+            return;
+        }
+
+        _log_ok(__FILE__, __FUNCTION__, __LINE__, "delete myaddress success ." );
+    }
+
+    myaddress address ;
+    address.set_id(std::stoll(id));
+    address.set_address("111");
+    get_address().put(address);
+
+
+    myinfo info;
+    info.set_id(std::stoll(id));
+    info.set_name(name.c_str());
+    get_info().put(info);
+
+
+
+    _log_ok(__FILE__, __FUNCTION__, __LINE__, "create", info.to_json());
+
 }
 
-DEFINE_METHOD(MyTable, del) {
-    xchain::Context* ctx = self.context();
+void MyInfo::del() {
+    xchain::Context* ctx = context();
     const std::string& id= ctx->arg("id");
     const std::string& name = ctx->arg("name");
 
-    MyTable::entity ent;
-    ent.set_id(std::stoll(id));
-    ent.set_name(name.c_str());
-    self.get_entity().del(ent);
+    myinfo info;
+    info.set_id(std::stoll(id));
+    info.set_name(name.c_str());
+    get_info().del(info);
 
     std::string re = "{";
     re += id + ",";
@@ -77,51 +199,36 @@ DEFINE_METHOD(MyTable, del) {
     ctx->ok(re);
 }
 
-DEFINE_METHOD(MyTable, scan) {
-    xchain::Context* ctx = self.context();
-    const std::string& name = ctx->arg("name");
+void MyInfo::scan() {
+    xchain::Context* ctx = context();
     const std::string& id = ctx->arg("id");
-    auto it = self.get_entity().scan({{"id", id},{"name", name}});
-    MyTable::entity ent;
-    int i = 0;
-    std::string re = "{";
-    std::map<std::string, bool> kv;
-    while(it->next()) {
-        if (it->get(&ent)) {
-            std::string obj = "{";
-            obj += std::to_string(ent.id()) + ",";
-            obj += ent.name() + "}";
-            re += obj;
 
-            if (kv.find(ent.name()) != kv.end()) {
-                ctx->error("find duplicated key");
-                return;
-            }
-            kv[ent.name()] = true;
-            i += 1;
-        } else {
-            std::cout << "get error" << std::endl;
+    xchain::json ja ;
+    auto it = get_info().scan({{"id", id}});
+    while(it->next() ) {
+        myinfo ent;
+        if (!it->get(&ent) ) {
+            _log_error(__FILE__, __FUNCTION__, __LINE__, "myinfo table get failure : " + it->error(true) );
+            return;
         }
+
+        ja.push_back(ent.to_json());
     }
-    std::cout << i << std::endl;
-    if (it->error()) {
-        std::cout << it->error(true) << std::endl;
-    }
-    re += "}";
-    ctx->ok(std::to_string(i) + " -> " + re);
+
+    _log_ok(__FILE__, __FUNCTION__, __LINE__, "scan", ja);
 }
 
-DEFINE_METHOD(MyTable, size) {
-    xchain::Context* ctx = self.context();
-    auto it = self.get_entity().scan({});
+void MyInfo::size() {
+    xchain::Context* ctx = context();
+    auto it = get_info().scan({});
     int i = 0;
     std::string re = "{";
     while(it->next()) {
-        MyTable::entity ent;
-        if (it->get(&ent)) {
+        myinfo info;
+        if (it->get(&info)) {
             std::string obj = "{";
-            obj += std::to_string(ent.id()) + ",";
-            obj += ent.name() + "}";
+            obj += std::to_string(info.id()) + ",";
+            obj += info.name() + "}";
             re += obj;
             i += 1;
         } else {
@@ -136,15 +243,14 @@ DEFINE_METHOD(MyTable, size) {
     ctx->ok(std::to_string(i) + " -> " + re);
 }
 
-
-DEFINE_METHOD(MyTable, clear) {
-    xchain::Context* ctx = self.context();
-    auto it = self.get_entity().scan({});
+void MyInfo::clear() {
+    xchain::Context* ctx = context();
+    auto it = get_info().scan({});
     int i = 0;
     while(it->next()) {
-        MyTable::entity ent;
-        if (it->get(&ent)) {
-            self.get_entity().del(ent);
+        myinfo info;
+        if (it->get(&info)) {
+            get_info().del(info);
             i += 1;
         } else {
             std::cout << "get error" << std::endl;
@@ -156,3 +262,12 @@ DEFINE_METHOD(MyTable, clear) {
     }
     ctx->ok(std::to_string(i));
 }
+
+
+DEFINE_METHOD(MyInfo, initialize)     { self.initialize();      }
+DEFINE_METHOD(MyInfo, get)            { self.get();             }
+DEFINE_METHOD(MyInfo, set)            { self.set();             }
+DEFINE_METHOD(MyInfo, del)            { self.del();             }
+DEFINE_METHOD(MyInfo, size)           { self.size();            }
+DEFINE_METHOD(MyInfo, scan)           { self.scan();            }
+DEFINE_METHOD(MyInfo, clear)          { self.clear();           }

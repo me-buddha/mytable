@@ -40,45 +40,49 @@ struct TableStruct_mytable_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::google::protobuf::internal::ParseTable schema[1]
+  static const ::google::protobuf::internal::ParseTable schema[2]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
 };
 namespace mytable {
-class MyTable;
+class MyAddress;
+class MyAddressDefaultTypeInternal;
+extern MyAddressDefaultTypeInternal _MyAddress_default_instance_;
+class MyInfo;
 class MyTableDefaultTypeInternal;
 extern MyTableDefaultTypeInternal _MyTable_default_instance_;
 }  // namespace mytable
 namespace google {
 namespace protobuf {
-template<> ::mytable::MyTable* Arena::CreateMaybeMessage<::mytable::MyTable>(Arena*);
+template<> ::mytable::MyAddress* Arena::CreateMaybeMessage<::mytable::MyAddress>(Arena*);
+template<> ::mytable::MyInfo* Arena::CreateMaybeMessage<::mytable::MyInfo>(Arena*);
 }  // namespace protobuf
 }  // namespace google
 namespace mytable {
 
 // ===================================================================
 
-class MyTable :
-    public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:mytable.MyTable) */ {
+class MyInfo :
+    public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:mytable.MyInfo) */ {
  public:
-  MyTable();
-  virtual ~MyTable();
+  MyInfo();
+  virtual ~MyInfo();
 
-  MyTable(const MyTable& from);
+  MyInfo(const MyInfo& from);
 
-  inline MyTable& operator=(const MyTable& from) {
+  inline MyInfo& operator=(const MyInfo& from) {
     CopyFrom(from);
     return *this;
   }
   #if LANG_CXX11
-  MyTable(MyTable&& from) noexcept
-    : MyTable() {
+  MyInfo(MyInfo&& from) noexcept
+    : MyInfo() {
     *this = ::std::move(from);
   }
 
-  inline MyTable& operator=(MyTable&& from) noexcept {
+  inline MyInfo& operator=(MyInfo&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -87,34 +91,34 @@ class MyTable :
     return *this;
   }
   #endif
-  static const MyTable& default_instance();
+  static const MyInfo& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const MyTable* internal_default_instance() {
-    return reinterpret_cast<const MyTable*>(
+  static inline const MyInfo* internal_default_instance() {
+    return reinterpret_cast<const MyInfo*>(
                &_MyTable_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  void Swap(MyTable* other);
-  friend void swap(MyTable& a, MyTable& b) {
+  void Swap(MyInfo* other);
+  friend void swap(MyInfo& a, MyInfo& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline MyTable* New() const final {
-    return CreateMaybeMessage<MyTable>(nullptr);
+  inline MyInfo* New() const final {
+    return CreateMaybeMessage<MyInfo>(nullptr);
   }
 
-  MyTable* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<MyTable>(arena);
+  MyInfo* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<MyInfo>(arena);
   }
   void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from)
     final;
-  void CopyFrom(const MyTable& from);
-  void MergeFrom(const MyTable& from);
+  void CopyFrom(const MyInfo& from);
+  void MergeFrom(const MyInfo& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -135,7 +139,7 @@ class MyTable :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(MyTable* other);
+  void InternalSwap(MyInfo* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return nullptr;
@@ -171,12 +175,135 @@ class MyTable :
   ::google::protobuf::int64 id() const;
   void set_id(::google::protobuf::int64 value);
 
-  // @@protoc_insertion_point(class_scope:mytable.MyTable)
+  // @@protoc_insertion_point(class_scope:mytable.MyInfo)
  private:
   class HasBitSetters;
 
   ::google::protobuf::internal::InternalMetadataWithArenaLite _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr name_;
+  ::google::protobuf::int64 id_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_mytable_2eproto;
+};
+// -------------------------------------------------------------------
+
+class MyAddress :
+    public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:mytable.MyAddress) */ {
+ public:
+  MyAddress();
+  virtual ~MyAddress();
+
+  MyAddress(const MyAddress& from);
+
+  inline MyAddress& operator=(const MyAddress& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  MyAddress(MyAddress&& from) noexcept
+    : MyAddress() {
+    *this = ::std::move(from);
+  }
+
+  inline MyAddress& operator=(MyAddress&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const MyAddress& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const MyAddress* internal_default_instance() {
+    return reinterpret_cast<const MyAddress*>(
+               &_MyAddress_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  void Swap(MyAddress* other);
+  friend void swap(MyAddress& a, MyAddress& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline MyAddress* New() const final {
+    return CreateMaybeMessage<MyAddress>(nullptr);
+  }
+
+  MyAddress* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<MyAddress>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from)
+    final;
+  void CopyFrom(const MyAddress& from);
+  void MergeFrom(const MyAddress& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  void DiscardUnknownFields();
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(MyAddress* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string address = 2;
+  void clear_address();
+  static const int kAddressFieldNumber = 2;
+  const ::std::string& address() const;
+  void set_address(const ::std::string& value);
+  #if LANG_CXX11
+  void set_address(::std::string&& value);
+  #endif
+  void set_address(const char* value);
+  void set_address(const char* value, size_t size);
+  ::std::string* mutable_address();
+  ::std::string* release_address();
+  void set_allocated_address(::std::string* address);
+
+  // int64 id = 1;
+  void clear_id();
+  static const int kIdFieldNumber = 1;
+  ::google::protobuf::int64 id() const;
+  void set_id(::google::protobuf::int64 value);
+
+  // @@protoc_insertion_point(class_scope:mytable.MyAddress)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArenaLite _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr address_;
   ::google::protobuf::int64 id_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_mytable_2eproto;
@@ -190,78 +317,151 @@ class MyTable :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// MyTable
+// MyInfo
 
 // int64 id = 1;
-inline void MyTable::clear_id() {
+inline void MyInfo::clear_id() {
   id_ = PROTOBUF_LONGLONG(0);
 }
-inline ::google::protobuf::int64 MyTable::id() const {
-  // @@protoc_insertion_point(field_get:mytable.MyTable.id)
+inline ::google::protobuf::int64 MyInfo::id() const {
+  // @@protoc_insertion_point(field_get:mytable.MyInfo.id)
   return id_;
 }
-inline void MyTable::set_id(::google::protobuf::int64 value) {
+inline void MyInfo::set_id(::google::protobuf::int64 value) {
   
   id_ = value;
-  // @@protoc_insertion_point(field_set:mytable.MyTable.id)
+  // @@protoc_insertion_point(field_set:mytable.MyInfo.id)
 }
 
 // string name = 2;
-inline void MyTable::clear_name() {
+inline void MyInfo::clear_name() {
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& MyTable::name() const {
-  // @@protoc_insertion_point(field_get:mytable.MyTable.name)
+inline const ::std::string& MyInfo::name() const {
+  // @@protoc_insertion_point(field_get:mytable.MyInfo.name)
   return name_.GetNoArena();
 }
-inline void MyTable::set_name(const ::std::string& value) {
+inline void MyInfo::set_name(const ::std::string& value) {
   
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:mytable.MyTable.name)
+  // @@protoc_insertion_point(field_set:mytable.MyInfo.name)
 }
 #if LANG_CXX11
-inline void MyTable::set_name(::std::string&& value) {
+inline void MyInfo::set_name(::std::string&& value) {
   
   name_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:mytable.MyTable.name)
+  // @@protoc_insertion_point(field_set_rvalue:mytable.MyInfo.name)
 }
 #endif
-inline void MyTable::set_name(const char* value) {
+inline void MyInfo::set_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:mytable.MyTable.name)
+  // @@protoc_insertion_point(field_set_char:mytable.MyInfo.name)
 }
-inline void MyTable::set_name(const char* value, size_t size) {
+inline void MyInfo::set_name(const char* value, size_t size) {
   
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:mytable.MyTable.name)
+  // @@protoc_insertion_point(field_set_pointer:mytable.MyInfo.name)
 }
-inline ::std::string* MyTable::mutable_name() {
+inline ::std::string* MyInfo::mutable_name() {
   
-  // @@protoc_insertion_point(field_mutable:mytable.MyTable.name)
+  // @@protoc_insertion_point(field_mutable:mytable.MyInfo.name)
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* MyTable::release_name() {
-  // @@protoc_insertion_point(field_release:mytable.MyTable.name)
+inline ::std::string* MyInfo::release_name() {
+  // @@protoc_insertion_point(field_release:mytable.MyInfo.name)
   
   return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void MyTable::set_allocated_name(::std::string* name) {
+inline void MyInfo::set_allocated_name(::std::string* name) {
   if (name != nullptr) {
     
   } else {
     
   }
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
-  // @@protoc_insertion_point(field_set_allocated:mytable.MyTable.name)
+  // @@protoc_insertion_point(field_set_allocated:mytable.MyInfo.name)
+}
+
+// -------------------------------------------------------------------
+
+// MyAddress
+
+// int64 id = 1;
+inline void MyAddress::clear_id() {
+  id_ = PROTOBUF_LONGLONG(0);
+}
+inline ::google::protobuf::int64 MyAddress::id() const {
+  // @@protoc_insertion_point(field_get:mytable.MyAddress.id)
+  return id_;
+}
+inline void MyAddress::set_id(::google::protobuf::int64 value) {
+  
+  id_ = value;
+  // @@protoc_insertion_point(field_set:mytable.MyAddress.id)
+}
+
+// string address = 2;
+inline void MyAddress::clear_address() {
+  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& MyAddress::address() const {
+  // @@protoc_insertion_point(field_get:mytable.MyAddress.address)
+  return address_.GetNoArena();
+}
+inline void MyAddress::set_address(const ::std::string& value) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:mytable.MyAddress.address)
+}
+#if LANG_CXX11
+inline void MyAddress::set_address(::std::string&& value) {
+  
+  address_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:mytable.MyAddress.address)
+}
+#endif
+inline void MyAddress::set_address(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:mytable.MyAddress.address)
+}
+inline void MyAddress::set_address(const char* value, size_t size) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:mytable.MyAddress.address)
+}
+inline ::std::string* MyAddress::mutable_address() {
+  
+  // @@protoc_insertion_point(field_mutable:mytable.MyAddress.address)
+  return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* MyAddress::release_address() {
+  // @@protoc_insertion_point(field_release:mytable.MyAddress.address)
+  
+  return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void MyAddress::set_allocated_address(::std::string* address) {
+  if (address != nullptr) {
+    
+  } else {
+    
+  }
+  address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
+  // @@protoc_insertion_point(field_set_allocated:mytable.MyAddress.address)
 }
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 

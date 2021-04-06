@@ -16,44 +16,62 @@
 namespace mytable {
 class MyTableDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<MyTable> _instance;
+  ::google::protobuf::internal::ExplicitlyConstructed<MyInfo> _instance;
 } _MyTable_default_instance_;
+class MyAddressDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<MyAddress> _instance;
+} _MyAddress_default_instance_;
 }  // namespace mytable
 static void InitDefaultsMyTable_mytable_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
     void* ptr = &::mytable::_MyTable_default_instance_;
-    new (ptr) ::mytable::MyTable();
+    new (ptr) ::mytable::MyInfo();
     ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::mytable::MyTable::InitAsDefaultInstance();
+  ::mytable::MyInfo::InitAsDefaultInstance();
 }
 
 ::google::protobuf::internal::SCCInfo<0> scc_info_MyTable_mytable_2eproto =
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsMyTable_mytable_2eproto}, {}};
 
+static void InitDefaultsMyAddress_mytable_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::mytable::_MyAddress_default_instance_;
+    new (ptr) ::mytable::MyAddress();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::mytable::MyAddress::InitAsDefaultInstance();
+}
+
+::google::protobuf::internal::SCCInfo<0> scc_info_MyAddress_mytable_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsMyAddress_mytable_2eproto}, {}};
+
 namespace mytable {
 
 // ===================================================================
 
-void MyTable::InitAsDefaultInstance() {
+void MyInfo::InitAsDefaultInstance() {
 }
-class MyTable::HasBitSetters {
+class MyInfo::HasBitSetters {
  public:
 };
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int MyTable::kIdFieldNumber;
-const int MyTable::kNameFieldNumber;
+const int MyInfo::kIdFieldNumber;
+const int MyInfo::kNameFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-MyTable::MyTable()
+MyInfo::MyInfo()
   : ::google::protobuf::MessageLite(), _internal_metadata_(nullptr) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:mytable.MyTable)
+  // @@protoc_insertion_point(constructor:mytable.MyInfo)
 }
-MyTable::MyTable(const MyTable& from)
+MyInfo::MyInfo(const MyInfo& from)
   : ::google::protobuf::MessageLite(),
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
@@ -62,36 +80,36 @@ MyTable::MyTable(const MyTable& from)
     name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
   id_ = from.id_;
-  // @@protoc_insertion_point(copy_constructor:mytable.MyTable)
+  // @@protoc_insertion_point(copy_constructor:mytable.MyInfo)
 }
 
-void MyTable::SharedCtor() {
+void MyInfo::SharedCtor() {
   ::google::protobuf::internal::InitSCC(
       &scc_info_MyTable_mytable_2eproto.base);
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   id_ = PROTOBUF_LONGLONG(0);
 }
 
-MyTable::~MyTable() {
-  // @@protoc_insertion_point(destructor:mytable.MyTable)
+MyInfo::~MyInfo() {
+  // @@protoc_insertion_point(destructor:mytable.MyInfo)
   SharedDtor();
 }
 
-void MyTable::SharedDtor() {
+void MyInfo::SharedDtor() {
   name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
-void MyTable::SetCachedSize(int size) const {
+void MyInfo::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const MyTable& MyTable::default_instance() {
+const MyInfo& MyInfo::default_instance() {
   ::google::protobuf::internal::InitSCC(&::scc_info_MyTable_mytable_2eproto.base);
   return *internal_default_instance();
 }
 
 
-void MyTable::Clear() {
-// @@protoc_insertion_point(message_clear_start:mytable.MyTable)
+void MyInfo::Clear() {
+// @@protoc_insertion_point(message_clear_start:mytable.MyInfo)
   ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -102,9 +120,9 @@ void MyTable::Clear() {
 }
 
 #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-const char* MyTable::_InternalParse(const char* begin, const char* end, void* object,
+const char* MyInfo::_InternalParse(const char* begin, const char* end, void* object,
                   ::google::protobuf::internal::ParseContext* ctx) {
-  auto msg = static_cast<MyTable*>(object);
+  auto msg = static_cast<MyInfo*>(object);
   ::google::protobuf::int32 size; (void)size;
   int depth; (void)depth;
   ::google::protobuf::uint32 tag;
@@ -161,7 +179,7 @@ len_delim_till_end:
                                {parser_till_end, object}, size);
 }
 #else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-bool MyTable::MergePartialFromCodedStream(
+bool MyInfo::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
@@ -171,7 +189,7 @@ bool MyTable::MergePartialFromCodedStream(
       unknown_fields_setter.buffer());
   ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
       &unknown_fields_output, false);
-  // @@protoc_insertion_point(parse_start:mytable.MyTable)
+  // @@protoc_insertion_point(parse_start:mytable.MyInfo)
   for (;;) {
     ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
@@ -198,7 +216,7 @@ bool MyTable::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->name().data(), static_cast<int>(this->name().length()),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "mytable.MyTable.name"));
+            "mytable.MyInfo.name"));
         } else {
           goto handle_unusual;
         }
@@ -217,18 +235,18 @@ bool MyTable::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:mytable.MyTable)
+  // @@protoc_insertion_point(parse_success:mytable.MyInfo)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:mytable.MyTable)
+  // @@protoc_insertion_point(parse_failure:mytable.MyInfo)
   return false;
 #undef DO_
 }
 #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
-void MyTable::SerializeWithCachedSizes(
+void MyInfo::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:mytable.MyTable)
+  // @@protoc_insertion_point(serialize_start:mytable.MyInfo)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -242,18 +260,18 @@ void MyTable::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), static_cast<int>(this->name().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "mytable.MyTable.name");
+      "mytable.MyInfo.name");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->name(), output);
   }
 
   output->WriteRaw(_internal_metadata_.unknown_fields().data(),
                    static_cast<int>(_internal_metadata_.unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:mytable.MyTable)
+  // @@protoc_insertion_point(serialize_end:mytable.MyInfo)
 }
 
-size_t MyTable::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:mytable.MyTable)
+size_t MyInfo::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:mytable.MyInfo)
   size_t total_size = 0;
 
   total_size += _internal_metadata_.unknown_fields().size();
@@ -281,13 +299,13 @@ size_t MyTable::ByteSizeLong() const {
   return total_size;
 }
 
-void MyTable::CheckTypeAndMergeFrom(
+void MyInfo::CheckTypeAndMergeFrom(
     const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const MyTable*>(&from));
+  MergeFrom(*::google::protobuf::down_cast<const MyInfo*>(&from));
 }
 
-void MyTable::MergeFrom(const MyTable& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:mytable.MyTable)
+void MyInfo::MergeFrom(const MyInfo& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:mytable.MyInfo)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::google::protobuf::uint32 cached_has_bits = 0;
@@ -302,22 +320,22 @@ void MyTable::MergeFrom(const MyTable& from) {
   }
 }
 
-void MyTable::CopyFrom(const MyTable& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:mytable.MyTable)
+void MyInfo::CopyFrom(const MyInfo& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:mytable.MyInfo)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool MyTable::IsInitialized() const {
+bool MyInfo::IsInitialized() const {
   return true;
 }
 
-void MyTable::Swap(MyTable* other) {
+void MyInfo::Swap(MyInfo* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void MyTable::InternalSwap(MyTable* other) {
+void MyInfo::InternalSwap(MyInfo* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
   name_.Swap(&other->name_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
@@ -325,8 +343,303 @@ void MyTable::InternalSwap(MyTable* other) {
   swap(id_, other->id_);
 }
 
-::std::string MyTable::GetTypeName() const {
-  return "mytable.MyTable";
+::std::string MyInfo::GetTypeName() const {
+  return "mytable.MyInfo";
+}
+
+
+// ===================================================================
+
+void MyAddress::InitAsDefaultInstance() {
+}
+class MyAddress::HasBitSetters {
+ public:
+};
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int MyAddress::kIdFieldNumber;
+const int MyAddress::kAddressFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+MyAddress::MyAddress()
+  : ::google::protobuf::MessageLite(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:mytable.MyAddress)
+}
+MyAddress::MyAddress(const MyAddress& from)
+  : ::google::protobuf::MessageLite(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  address_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.address().size() > 0) {
+    address_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.address_);
+  }
+  id_ = from.id_;
+  // @@protoc_insertion_point(copy_constructor:mytable.MyAddress)
+}
+
+void MyAddress::SharedCtor() {
+  ::google::protobuf::internal::InitSCC(
+      &scc_info_MyAddress_mytable_2eproto.base);
+  address_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  id_ = PROTOBUF_LONGLONG(0);
+}
+
+MyAddress::~MyAddress() {
+  // @@protoc_insertion_point(destructor:mytable.MyAddress)
+  SharedDtor();
+}
+
+void MyAddress::SharedDtor() {
+  address_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void MyAddress::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const MyAddress& MyAddress::default_instance() {
+  ::google::protobuf::internal::InitSCC(&::scc_info_MyAddress_mytable_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void MyAddress::Clear() {
+// @@protoc_insertion_point(message_clear_start:mytable.MyAddress)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  id_ = PROTOBUF_LONGLONG(0);
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* MyAddress::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<MyAddress*>(object);
+  ::google::protobuf::int32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ptr = ::google::protobuf::io::Parse32(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // int64 id = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 8) goto handle_unusual;
+        msg->set_id(::google::protobuf::internal::ReadVarint(&ptr));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        break;
+      }
+      // string address = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName(nullptr);
+        object = msg->mutable_address();
+        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
+          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8;
+          goto string_till_end;
+        }
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8(ptr, size, ctx));
+        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+        ptr += size;
+        break;
+      }
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->EndGroup(tag);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr != nullptr);
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+string_till_end:
+  static_cast<::std::string*>(object)->clear();
+  static_cast<::std::string*>(object)->reserve(size);
+  goto len_delim_till_end;
+len_delim_till_end:
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                               {parser_till_end, object}, size);
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool MyAddress::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
+      &_internal_metadata_);
+  ::google::protobuf::io::StringOutputStream unknown_fields_output(
+      unknown_fields_setter.buffer());
+  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
+      &unknown_fields_output, false);
+  // @@protoc_insertion_point(parse_start:mytable.MyAddress)
+  for (;;) {
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // int64 id = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (8 & 0xFF)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &id_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string address = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_address()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->address().data(), static_cast<int>(this->address().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "mytable.MyAddress.address"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
+            input, tag, &unknown_fields_stream));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:mytable.MyAddress)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:mytable.MyAddress)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+void MyAddress::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:mytable.MyAddress)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int64 id = 1;
+  if (this->id() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->id(), output);
+  }
+
+  // string address = 2;
+  if (this->address().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->address().data(), static_cast<int>(this->address().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "mytable.MyAddress.address");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->address(), output);
+  }
+
+  output->WriteRaw(_internal_metadata_.unknown_fields().data(),
+                   static_cast<int>(_internal_metadata_.unknown_fields().size()));
+  // @@protoc_insertion_point(serialize_end:mytable.MyAddress)
+}
+
+size_t MyAddress::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:mytable.MyAddress)
+  size_t total_size = 0;
+
+  total_size += _internal_metadata_.unknown_fields().size();
+
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string address = 2;
+  if (this->address().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->address());
+  }
+
+  // int64 id = 1;
+  if (this->id() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->id());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void MyAddress::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const MyAddress*>(&from));
+}
+
+void MyAddress::MergeFrom(const MyAddress& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:mytable.MyAddress)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.address().size() > 0) {
+
+    address_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.address_);
+  }
+  if (from.id() != 0) {
+    set_id(from.id());
+  }
+}
+
+void MyAddress::CopyFrom(const MyAddress& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:mytable.MyAddress)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool MyAddress::IsInitialized() const {
+  return true;
+}
+
+void MyAddress::Swap(MyAddress* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void MyAddress::InternalSwap(MyAddress* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  address_.Swap(&other->address_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  swap(id_, other->id_);
+}
+
+::std::string MyAddress::GetTypeName() const {
+  return "mytable.MyAddress";
 }
 
 
@@ -334,8 +647,11 @@ void MyTable::InternalSwap(MyTable* other) {
 }  // namespace mytable
 namespace google {
 namespace protobuf {
-template<> PROTOBUF_NOINLINE ::mytable::MyTable* Arena::CreateMaybeMessage< ::mytable::MyTable >(Arena* arena) {
-  return Arena::CreateInternal< ::mytable::MyTable >(arena);
+template<> PROTOBUF_NOINLINE ::mytable::MyInfo* Arena::CreateMaybeMessage< ::mytable::MyInfo >(Arena* arena) {
+  return Arena::CreateInternal< ::mytable::MyInfo >(arena);
+}
+template<> PROTOBUF_NOINLINE ::mytable::MyAddress* Arena::CreateMaybeMessage< ::mytable::MyAddress >(Arena* arena) {
+  return Arena::CreateInternal< ::mytable::MyAddress >(arena);
 }
 }  // namespace protobuf
 }  // namespace google
