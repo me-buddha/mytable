@@ -4,6 +4,11 @@
 #include "xchain/table/table.tpl.h"
 #include "mytable.pb.h"
 
+#include <string>
+using namespace std;
+
+#define mycout cout << __FILE__ << "(" << __LINE__ << ") [" << __FUNCTION__ << "] " 
+
 //data mytableing
 struct MyTable : public xchain::Contract {
 public:
@@ -12,8 +17,9 @@ public:
     // 1. rowkey can not be same with index
     struct entity: public mytable::MyTable {
         DEFINE_ROWKEY(name);
-        DEFINE_INDEX_BEGIN(1)
+        DEFINE_INDEX_BEGIN(2)
             DEFINE_INDEX_ADD(0, id, name)
+            DEFINE_INDEX_ADD(1, name)
         DEFINE_INDEX_END();
     };
 private:
@@ -23,6 +29,17 @@ public:
     decltype(_entity)& get_entity() {
         return _entity;
     }
+
+
+    xchain::json to_json() {
+        xchain::json j = {
+            {"id", id()},
+            {"name", name()},
+        };
+
+        return j;
+    }
+
 };
 
 //初始化
@@ -36,10 +53,7 @@ DEFINE_METHOD(MyTable, get) {
     const std::string& name = ctx->arg("name");
     MyTable::entity ent;
     if (self.get_entity().find({{"name", name}}, &ent)) {
-        std::string re = "{";
-        re += std::to_string(ent.id()) + ",";
-        re += ent.name() + "}";
-        ctx->ok(re);
+        mcout << ent.to_json() << endl;
         return;
     }
     ctx->error("can not find " + name);
