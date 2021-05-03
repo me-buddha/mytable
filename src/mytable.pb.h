@@ -46,22 +46,19 @@ struct TableStruct_mytable_2eproto {
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
 };
-namespace mytable {
 class MyTable;
 class MyTableDefaultTypeInternal;
 extern MyTableDefaultTypeInternal _MyTable_default_instance_;
-}  // namespace mytable
 namespace google {
 namespace protobuf {
-template<> ::mytable::MyTable* Arena::CreateMaybeMessage<::mytable::MyTable>(Arena*);
+template<> ::MyTable* Arena::CreateMaybeMessage<::MyTable>(Arena*);
 }  // namespace protobuf
 }  // namespace google
-namespace mytable {
 
 // ===================================================================
 
 class MyTable :
-    public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:mytable.MyTable) */ {
+    public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:MyTable) */ {
  public:
   MyTable();
   virtual ~MyTable();
@@ -171,7 +168,7 @@ class MyTable :
   ::google::protobuf::int64 id() const;
   void set_id(::google::protobuf::int64 value);
 
-  // @@protoc_insertion_point(class_scope:mytable.MyTable)
+  // @@protoc_insertion_point(class_scope:MyTable)
  private:
   class HasBitSetters;
 
@@ -197,13 +194,13 @@ inline void MyTable::clear_id() {
   id_ = PROTOBUF_LONGLONG(0);
 }
 inline ::google::protobuf::int64 MyTable::id() const {
-  // @@protoc_insertion_point(field_get:mytable.MyTable.id)
+  // @@protoc_insertion_point(field_get:MyTable.id)
   return id_;
 }
 inline void MyTable::set_id(::google::protobuf::int64 value) {
   
   id_ = value;
-  // @@protoc_insertion_point(field_set:mytable.MyTable.id)
+  // @@protoc_insertion_point(field_set:MyTable.id)
 }
 
 // string name = 2;
@@ -211,41 +208,41 @@ inline void MyTable::clear_name() {
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& MyTable::name() const {
-  // @@protoc_insertion_point(field_get:mytable.MyTable.name)
+  // @@protoc_insertion_point(field_get:MyTable.name)
   return name_.GetNoArena();
 }
 inline void MyTable::set_name(const ::std::string& value) {
   
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:mytable.MyTable.name)
+  // @@protoc_insertion_point(field_set:MyTable.name)
 }
 #if LANG_CXX11
 inline void MyTable::set_name(::std::string&& value) {
   
   name_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:mytable.MyTable.name)
+  // @@protoc_insertion_point(field_set_rvalue:MyTable.name)
 }
 #endif
 inline void MyTable::set_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:mytable.MyTable.name)
+  // @@protoc_insertion_point(field_set_char:MyTable.name)
 }
 inline void MyTable::set_name(const char* value, size_t size) {
   
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:mytable.MyTable.name)
+  // @@protoc_insertion_point(field_set_pointer:MyTable.name)
 }
 inline ::std::string* MyTable::mutable_name() {
   
-  // @@protoc_insertion_point(field_mutable:mytable.MyTable.name)
+  // @@protoc_insertion_point(field_mutable:MyTable.name)
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* MyTable::release_name() {
-  // @@protoc_insertion_point(field_release:mytable.MyTable.name)
+  // @@protoc_insertion_point(field_release:MyTable.name)
   
   return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -256,7 +253,7 @@ inline void MyTable::set_allocated_name(::std::string* name) {
     
   }
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
-  // @@protoc_insertion_point(field_set_allocated:mytable.MyTable.name)
+  // @@protoc_insertion_point(field_set_allocated:MyTable.name)
 }
 
 #ifdef __GNUC__
@@ -265,7 +262,6 @@ inline void MyTable::set_allocated_name(::std::string* name) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace mytable
 
 // @@protoc_insertion_point(global_scope)
 

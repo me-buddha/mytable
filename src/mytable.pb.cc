@@ -13,27 +13,24 @@
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 
-namespace mytable {
 class MyTableDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<MyTable> _instance;
 } _MyTable_default_instance_;
-}  // namespace mytable
 static void InitDefaultsMyTable_mytable_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::mytable::_MyTable_default_instance_;
-    new (ptr) ::mytable::MyTable();
+    void* ptr = &::_MyTable_default_instance_;
+    new (ptr) ::MyTable();
     ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::mytable::MyTable::InitAsDefaultInstance();
+  ::MyTable::InitAsDefaultInstance();
 }
 
 ::google::protobuf::internal::SCCInfo<0> scc_info_MyTable_mytable_2eproto =
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsMyTable_mytable_2eproto}, {}};
 
-namespace mytable {
 
 // ===================================================================
 
@@ -51,7 +48,7 @@ const int MyTable::kNameFieldNumber;
 MyTable::MyTable()
   : ::google::protobuf::MessageLite(), _internal_metadata_(nullptr) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:mytable.MyTable)
+  // @@protoc_insertion_point(constructor:MyTable)
 }
 MyTable::MyTable(const MyTable& from)
   : ::google::protobuf::MessageLite(),
@@ -62,7 +59,7 @@ MyTable::MyTable(const MyTable& from)
     name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
   id_ = from.id_;
-  // @@protoc_insertion_point(copy_constructor:mytable.MyTable)
+  // @@protoc_insertion_point(copy_constructor:MyTable)
 }
 
 void MyTable::SharedCtor() {
@@ -73,7 +70,7 @@ void MyTable::SharedCtor() {
 }
 
 MyTable::~MyTable() {
-  // @@protoc_insertion_point(destructor:mytable.MyTable)
+  // @@protoc_insertion_point(destructor:MyTable)
   SharedDtor();
 }
 
@@ -91,7 +88,7 @@ const MyTable& MyTable::default_instance() {
 
 
 void MyTable::Clear() {
-// @@protoc_insertion_point(message_clear_start:mytable.MyTable)
+// @@protoc_insertion_point(message_clear_start:MyTable)
   ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -171,7 +168,7 @@ bool MyTable::MergePartialFromCodedStream(
       unknown_fields_setter.buffer());
   ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
       &unknown_fields_output, false);
-  // @@protoc_insertion_point(parse_start:mytable.MyTable)
+  // @@protoc_insertion_point(parse_start:MyTable)
   for (;;) {
     ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
@@ -198,7 +195,7 @@ bool MyTable::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->name().data(), static_cast<int>(this->name().length()),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "mytable.MyTable.name"));
+            "MyTable.name"));
         } else {
           goto handle_unusual;
         }
@@ -217,10 +214,10 @@ bool MyTable::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:mytable.MyTable)
+  // @@protoc_insertion_point(parse_success:MyTable)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:mytable.MyTable)
+  // @@protoc_insertion_point(parse_failure:MyTable)
   return false;
 #undef DO_
 }
@@ -228,7 +225,7 @@ failure:
 
 void MyTable::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:mytable.MyTable)
+  // @@protoc_insertion_point(serialize_start:MyTable)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -242,18 +239,18 @@ void MyTable::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), static_cast<int>(this->name().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "mytable.MyTable.name");
+      "MyTable.name");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->name(), output);
   }
 
   output->WriteRaw(_internal_metadata_.unknown_fields().data(),
                    static_cast<int>(_internal_metadata_.unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:mytable.MyTable)
+  // @@protoc_insertion_point(serialize_end:MyTable)
 }
 
 size_t MyTable::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:mytable.MyTable)
+// @@protoc_insertion_point(message_byte_size_start:MyTable)
   size_t total_size = 0;
 
   total_size += _internal_metadata_.unknown_fields().size();
@@ -287,7 +284,7 @@ void MyTable::CheckTypeAndMergeFrom(
 }
 
 void MyTable::MergeFrom(const MyTable& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:mytable.MyTable)
+// @@protoc_insertion_point(class_specific_merge_from_start:MyTable)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::google::protobuf::uint32 cached_has_bits = 0;
@@ -303,7 +300,7 @@ void MyTable::MergeFrom(const MyTable& from) {
 }
 
 void MyTable::CopyFrom(const MyTable& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:mytable.MyTable)
+// @@protoc_insertion_point(class_specific_copy_from_start:MyTable)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -326,16 +323,15 @@ void MyTable::InternalSwap(MyTable* other) {
 }
 
 ::std::string MyTable::GetTypeName() const {
-  return "mytable.MyTable";
+  return "MyTable";
 }
 
 
 // @@protoc_insertion_point(namespace_scope)
-}  // namespace mytable
 namespace google {
 namespace protobuf {
-template<> PROTOBUF_NOINLINE ::mytable::MyTable* Arena::CreateMaybeMessage< ::mytable::MyTable >(Arena* arena) {
-  return Arena::CreateInternal< ::mytable::MyTable >(arena);
+template<> PROTOBUF_NOINLINE ::MyTable* Arena::CreateMaybeMessage< ::MyTable >(Arena* arena) {
+  return Arena::CreateInternal< ::MyTable >(arena);
 }
 }  // namespace protobuf
 }  // namespace google
