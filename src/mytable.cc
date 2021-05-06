@@ -13,8 +13,8 @@ using namespace std;
 
 class mytable: public MyTable {
     DEFINE_ROWKEY(id);
-    DEFINE_INDEX_BEGIN(1)
-        DEFINE_INDEX_ADD(0, id, name)
+    DEFINE_INDEX_BEGIN(2)
+        DEFINE_INDEX_ADD(0, id)
         DEFINE_INDEX_ADD(1, name)
     DEFINE_INDEX_END();
 
@@ -54,24 +54,21 @@ DEFINE_METHOD(Main, set) {
     const std::string& id= ctx->arg("id");
     const std::string& name = ctx->arg("name");
 
-    mycout << id << " " << name << endl ;
-
     mytable ent;
     ent.set_id(std::stoll(id));
     ent.set_name(name);
     self.get_entity().put(ent);
-    mycout << id << " " << name << endl ;
 
-    ctx->ok(ent.to_json());
+    ctx->ok(ent.to_json().dump());
 }
 
 DEFINE_METHOD(Main, get) {
     xchain::Context* ctx = self.context();
-    const std::string& name = ctx->arg("name");
+    const std::string& id = ctx->arg("id");
     mytable ent;
-    if (self.get_entity().find({{"name", name}}, &ent)) {
-        mycout << ent.to_json() << endl;
+    if (self.get_entity().find({{"id", id}}, &ent)) {
+        ctx->ok(ent.to_json().dump());
         return;
     }
-    ctx->error("can not find " + name);
+    ctx->error("can not find " + id);
 }
